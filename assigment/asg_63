@@ -1,0 +1,80 @@
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: AlertDialogDemo(),
+    );
+  }
+}
+
+class AlertDialogDemo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('AlertDialog Demo'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            _showAlertDialog(context);
+          },
+          child: Text('Show Alert Dialog'),
+        ),
+      ),
+    );
+  }
+
+  void _showAlertDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Choose an option'),
+          content: Text('What do you want to do?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                _displayToast(context, 'Positive choice');
+                Navigator.of(context).pop();
+              },
+              child: Text('Positive'),
+            ),
+            TextButton(
+              onPressed: () {
+                _displayToast(context, 'Negative choice');
+                Navigator.of(context).pop();
+              },
+              child: Text('Negative'),
+            ),
+            TextButton(
+              onPressed: () {
+                _displayToast(context, 'Neutral choice');
+                Navigator.of(context).pop();
+              },
+              child: Text('Neutral'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _displayToast(BuildContext context, String message) {
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      backgroundColor: Colors.black,
+      textColor: Colors.white,
+    );
+  }
+}
